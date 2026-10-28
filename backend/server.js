@@ -45,8 +45,9 @@ app.post('/api/books', async (req, res) => {
     await newBook.save();
     res.status(201).json(newBook);
   } catch (error) {
-    if (error.code === 11000) return res.status(400).json({ error: 'Ma sach da ton tai' });
-    res.status(400).json({ error: 'Du lieu khong hop le' });
+    console.log("❌ LỖI LƯU SÁCH:", error.message); // In lỗi chi tiết ra Terminal
+    if (error.code === 11000) return res.status(400).json({ error: 'Mã sách đã tồn tại' });
+    res.status(400).json({ error: 'Dữ liệu không hợp lệ: ' + error.message });
   }
 });
 
